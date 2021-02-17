@@ -42,13 +42,15 @@ class Object(PageObject):
             # validate user email
             if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):  # if the email is valid
                 email_flag = True
-                # username
+                print('Email address is valid')
+                # enter email address
                 username_input.send_keys(self.new_email)
                 self.long_wait()
                 # login button
                 submit_button.click()
                 self.long_wait()
             else:  # the email is invalid
+                print('Email address is invalid')
                 username_input.send_keys(self.new_email)
                 self.long_wait()
                 # login button
@@ -140,19 +142,7 @@ class Object(PageObject):
         message = self.driver.find_element(
             By.XPATH, "/html/body/div/div[1]/header/div[3]/div/div/div[4]/div[1]/div[1]/h2").text
         message.strip()
-        self.short_wait()
-        quantity = self.driver.find_element(
-            By.XPATH, "/html/body/div/div[1]/header/div[3]/div/div/div[4]/div[1]/div[1]/div[2]/div[1]/span").text
-        self.long_wait()
-        unit_price = self.driver.find_element(By.CSS_SELECTOR, "span#layer_cart_product_price").text[1:]
-        self.short_wait()
-        total_price = int(quantity) * int(float(unit_price))
-        self.short_wait()
-        # verify the quantity with unit price to get the total price
-        state_price = self.driver.find_element(By.CSS_SELECTOR, "span.ajax_block_products_total").text[1:3]
-        state_price = int(state_price)
-        self.short_wait()
-        assert total_price == state_price
+        print("message",message)
         self.short_wait()
         # Verify the product
         assert self.driver.find_element(
@@ -178,12 +168,17 @@ class Object(PageObject):
 
     def make_purchase(self):
         total_product = self.driver.find_element(By.ID, "total_product").text[1:]
+        print("total_product",total_product)
         total_shipping = self.driver.find_element(By.ID, "total_shipping").text[1:]
+        print("total_shipping",total_shipping)
         total_product_shipping = int(float(total_product)) + int(float(total_shipping))
         tax = self.driver.find_element(By.ID, "total_tax").text[1:]
+        print("tax",tax)
         total_price_with_tax = total_product_shipping + int(float(tax))
+        print("total_price_with_tax",total_price_with_tax)
         total_price = self.driver.find_element(By.ID, "total_price").text[1:3]
         total_price = int(total_price)
+        print("total_price",total_price)
         assert total_price_with_tax == total_price
         # proceed to checkout
         self.driver.find_element(
@@ -191,8 +186,6 @@ class Object(PageObject):
         self.short_wait()
         self.driver.find_element(
             By.CSS_SELECTOR, "button.button.btn.btn-default.button-medium").click()
-        # get the delivery/shipping price
-        delivery_price = self.driver.find_element(By.CSS_SELECTOR, "td.delivery_option_price > div").text[1:]
         self.short_wait()
         # click on the checkbox
         self.driver.find_element(By.ID, "cgv").click()
