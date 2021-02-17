@@ -17,6 +17,7 @@ Selenium
 
 # Running Tests
 * The following steps should get you set up for running Selenium tests locally on your machine:
+
 1.Clone this repository to your local machine
 2.Run python -m pytest my_store/test_create_account.py -s
 
