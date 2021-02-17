@@ -1,5 +1,7 @@
 """Page object creates an object repository for storing all web elements. It is useful in reducing code duplication and
 improves test case maintenance"""
+# added print statement in the code just for reference
+
 import re
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -40,7 +42,8 @@ class Object(PageObject):
         while not email_flag:
             email = self.new_email
             # validate user email
-            if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):  # if the email is valid
+            if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email): 
+                 # if the email is valid
                 email_flag = True
                 print('Email address is valid')
                 # enter email address
