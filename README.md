@@ -12,8 +12,8 @@
 Selenium
 
 # Setup
-* install python
-* pip install -r requirements.txt
+1.install python
+2.pip install -r requirements.txt
 
 # Operating System
 * Windows
