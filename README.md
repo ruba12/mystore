@@ -10,7 +10,7 @@
 
 # Tools
 Selenium
-S
+
 # Setup
 * install python
 * pip install -r requirements.txt
