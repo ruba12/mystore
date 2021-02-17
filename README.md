@@ -24,9 +24,11 @@ S
 
 1.Clone this repository to your local machine
 
-2.Run the following command:
+2. Open test_mystore.py file
 
-python -m pytest my_store/test_create_account.py -s
+3.Run the following command:
+
+python -m pytest my_store/test_mystore.py -s
 
 # Browser
 Chrome

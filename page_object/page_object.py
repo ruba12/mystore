@@ -142,11 +142,6 @@ class Object(PageObject):
             "#homefeatured > li:nth-child(2) > div > div.right-block > div.button-container"
             " > a.button.ajax_add_to_cart_button.btn.btn-default > span").click()
         self.short_wait()
-        message = self.driver.find_element(
-            By.XPATH, "/html/body/div/div[1]/header/div[3]/div/div/div[4]/div[1]/div[1]/h2").text
-        message.strip()
-        print("message",message)
-        self.short_wait()
         # Verify the product
         assert self.driver.find_element(
             By.XPATH,
