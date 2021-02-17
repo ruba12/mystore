@@ -1,7 +1,8 @@
 # Virtual env
-.venv/
-.env/
+.venv
 .pytest_cache
 .idea
+__pycache__
+.DS_Store
 
 
