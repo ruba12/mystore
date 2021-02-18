@@ -106,40 +106,7 @@ class PageObject(_TestCaseUtils):
     """Page Object model is an object design pattern, where web pages
     are represented as classes, and various elements on the page are
     defined as variables on the class. All possible user interactions
-    can then be implemented as methods.
-    In order to do this, place a `page_objects_sales_journey.py` module in the root
-    project folder, such as `evergreen`, then inherit your page objects
-    from this class. If you need more flexibility, you might create
-    modules inside a `page_objects` package, such as
-    `page_objects/onenow.py`.
-    Example:
-    >>> class LoginPage(PageObject):
-    >>>     url = B2B2C_URLS['UKG']
-    >>>     username_input = By.CSS_SELECTOR, 'form > input.username'
-    >>>     password_input = By.CSS_SELECTOR, 'form > input.password'
-    >>>     submit_button = By.CSS_SELECTOR, 'form > button'
-    >>>
-    >>>     def login_user(self):
-    >>>         self.driver.get(self.url)
-    >>>         username_input = self.wait.until(
-    >>>             EC.visibility_of_element_located(self.username_input)
-    >>>         )
-    >>>         username_input.send_keys('amy@tigerlab.com')
-    >>>         password_input = self.wait.until(
-    >>>             EC.visibility_of_element_located(self.password_input)
-    >>>         )
-    >>>         password_input.send_keys('SecretPassword')
-    >>>         submit_button = self.wait.until(
-    >>>             EC.element_to_be_clickable(self.submit_button)
-    >>>         )
-    >>>         submit_button.click()
-    Usage:
-    >>> class TestLoginPage(OneNowTestCase):
-    >>>     def test_login(self):
-    >>>         page = LoginPage(self.driver)
-    >>>         page.login_and_nav_to_onenow()
-    >>>         assert self.driver.current_url == f'{page.url}/dashboard/'
-    """
+    can then be implemented as methods."""
 
     def __init__(self, driver):
         self.driver = driver
