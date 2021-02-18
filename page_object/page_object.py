@@ -1,6 +1,5 @@
 """Page object creates an object repository for storing all web elements. It is useful in reducing code duplication and
 improves test case maintenance"""
-# added print statement in the code just for reference
 
 import re
 from selenium.webdriver import ActionChains
@@ -45,7 +44,6 @@ class Object(PageObject):
             if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email): 
                  # if the email is valid
                 email_flag = True
-                print('Email address is valid')
                 # enter email address
                 username_input.send_keys(self.new_email)
                 self.long_wait()
@@ -53,7 +51,6 @@ class Object(PageObject):
                 submit_button.click()
                 self.long_wait()
             else:  # the email is invalid
-                print('Email address is invalid')
                 username_input.send_keys(self.new_email)
                 self.long_wait()
                 # login button
@@ -130,22 +127,12 @@ class Object(PageObject):
             By.CSS_SELECTOR, "#homefeatured > li:nth-child(2)")
         hov = ActionChains(self.driver).move_to_element(element)
         hov.perform()
-        self.short_wait()
-        product_name = self.driver.find_element(
-            By.CSS_SELECTOR,
-            "#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3"
-            ".last-item-of-mobile-line.hovered h5 > a").text
-        self.short_wait()
+        self.long_wait
         #  add item to cart
         self.driver.find_element(
             By.CSS_SELECTOR,
             "#homefeatured > li:nth-child(2) > div > div.right-block > div.button-container"
             " > a.button.ajax_add_to_cart_button.btn.btn-default > span").click()
-        self.short_wait()
-        # Verify the product
-        assert self.driver.find_element(
-            By.XPATH,
-            "/html/body/div/div[1]/header/div[3]/div/div/div[4]/div[1]/div[1]/div[2]/span[1]").text == product_name
         self.short_wait()
         # continue shopping
         self.driver.find_element(By.CSS_SELECTOR, ".continue.btn.btn-default.button.exclusive-medium").click()
@@ -165,23 +152,25 @@ class Object(PageObject):
     """Validate if user can make purchase/payment"""
 
     def make_purchase(self):
+        # getting the value of total product
         total_product = self.driver.find_element(By.ID, "total_product").text[1:]
-        print("total_product",total_product)
+        # getting the value of total shipping/delivery charge
         total_shipping = self.driver.find_element(By.ID, "total_shipping").text[1:]
-        print("total_shipping",total_shipping)
+        # adding total product and delivery charge to get the total price of the product
         total_product_shipping = int(float(total_product)) + int(float(total_shipping))
+        # getting the tax charge
         tax = self.driver.find_element(By.ID, "total_tax").text[1:]
-        print("tax",tax)
+        # adding the tax charge with total price of product to obtain total price with tax
         total_price_with_tax = total_product_shipping + int(float(tax))
-        print("total_price_with_tax",total_price_with_tax)
+        # verifying and asserting the total price with obtained total price with tax
         total_price = self.driver.find_element(By.ID, "total_price").text[1:3]
         total_price = int(total_price)
-        print("total_price",total_price)
         assert total_price_with_tax == total_price
-        # proceed to checkout
+        # click to proceed to checkout
         self.driver.find_element(
             By.CSS_SELECTOR, "a.button.btn.btn-default.standard-checkout.button-medium > span").click()
         self.short_wait()
+        # click proceed to checkout
         self.driver.find_element(
             By.CSS_SELECTOR, "button.button.btn.btn-default.button-medium").click()
         self.short_wait()
