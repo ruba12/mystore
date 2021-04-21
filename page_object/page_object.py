@@ -24,7 +24,7 @@ class Object(PageObject):
         self.postcode = "12343"
         self.address = "8th Avenue Street"
         self.city = "Hokaido"
-        self.company = "Fave"
+        self.company = "NewTown"
 
     """ Validate if user can register a valid email"""
     def login_as_user(self):
@@ -44,16 +44,12 @@ class Object(PageObject):
                 email_flag = True
                 # username
                 username_input.send_keys(self.new_email)
-                self.long_wait()
                 # login button
                 submit_button.click()
-                self.long_wait()
             else:  # the email is invalid
                 username_input.send_keys(self.new_email)
-                self.long_wait()
                 # login button
                 submit_button.click()
-                self.long_wait()
                 assert self.driver.find_element(
                     By.CSS_SELECTOR, "#create_account_error > ol > li").text == "Invalid email address."
                 break
@@ -63,16 +59,12 @@ class Object(PageObject):
     def create_account(self):
         # select title
         self.driver.find_element_by_css_selector("input[id='id_gender2']").click()
-        self.short_wait()
         # enter first name
         self.driver.find_element(By.ID, "customer_firstname").send_keys(self.first_name)
-        self.short_wait()
         # enter last name
         self.driver.find_element(By.ID, "customer_lastname").send_keys(self.last_name)
-        self.short_wait()
         # enter password
         self.driver.find_element(By.ID, "passwd").send_keys(self.password_generator())
-        self.short_wait()
         # enter dob
         # select day
         day = Select(self.driver.find_element(By.ID, "days"))
@@ -86,28 +78,20 @@ class Object(PageObject):
         # YOUR ADDRESS
         # enter company
         self.driver.find_element(By.ID, "company").send_keys(self.company)
-        self.short_wait()
         # enter address1
         self.driver.find_element(By.ID, "address1").send_keys(self.address)
-        self.short_wait()
         # enter city
         self.driver.find_element(By.ID, "city").send_keys(self.city)
-        self.short_wait()
         # enter state
         state = Select(self.driver.find_element(By.ID, "id_state"))
         state.select_by_index(2)
-        self.short_wait()
-        self.short_wait()
         # enter postcode
         self.driver.find_element(By.ID, "postcode").send_keys(self.postcode)
-        self.short_wait()
         # enter country
         country = Select(self.driver.find_element(By.ID, "id_country"))
         country.select_by_index(1)
-        self.short_wait()
         # enter phone mobile
         self.driver.find_element(By.ID, "phone_mobile").send_keys(self.phone_number)
-        self.short_wait()
         # enter submit button
         self.driver.find_element(By.CSS_SELECTOR, "#submitAccount > span").click()
         return country
@@ -116,57 +100,43 @@ class Object(PageObject):
     def add_to_cart(self):
         # click Home button
         self.driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div[3]/div/ul/li/a/span").click()
-        self.long_wait()
         # scroll page down
         self.driver.execute_script("window.scrollTo(0, 700)")
-        self.long_wait()
         # hover over the element
         element = self.driver.find_element(
             By.CSS_SELECTOR, "#homefeatured > li:nth-child(2)")
         hov = ActionChains(self.driver).move_to_element(element)
         hov.perform()
-        self.short_wait()
         product_name = self.driver.find_element(
             By.CSS_SELECTOR,
             "#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3"
             ".last-item-of-mobile-line.hovered h5 > a").text
-        self.short_wait()
         #  add item to cart
         self.driver.find_element(
             By.CSS_SELECTOR,
             "#homefeatured > li:nth-child(2) > div > div.right-block > div.button-container"
             " > a.button.ajax_add_to_cart_button.btn.btn-default > span").click()
-        self.short_wait()
         message = self.driver.find_element(
             By.XPATH, "/html/body/div/div[1]/header/div[3]/div/div/div[4]/div[1]/div[1]/h2").text
         message.strip()
-        self.short_wait()
         quantity = self.driver.find_element(
             By.XPATH, "/html/body/div/div[1]/header/div[3]/div/div/div[4]/div[1]/div[1]/div[2]/div[1]/span").text
-        self.long_wait()
         unit_price = self.driver.find_element(By.CSS_SELECTOR, "span#layer_cart_product_price").text[1:]
-        self.short_wait()
         total_price = int(quantity) * int(float(unit_price))
-        self.short_wait()
         # verify the quantity with unit price to get the total price
         state_price = self.driver.find_element(By.CSS_SELECTOR, "span.ajax_block_products_total").text[1:3]
         state_price = int(state_price)
-        self.short_wait()
         assert total_price == state_price
-        self.short_wait()
         # Verify the product
         assert self.driver.find_element(
             By.XPATH,
             "/html/body/div/div[1]/header/div[3]/div/div/div[4]/div[1]/div[1]/div[2]/span[1]").text == product_name
-        self.short_wait()
         # continue shopping
         self.driver.find_element(By.CSS_SELECTOR, ".continue.btn.btn-default.button.exclusive-medium").click()
-        self.short_wait()
         element = self.driver.find_element(
             By.CSS_SELECTOR, "#homefeatured > li:nth-child(4)")
         hov = ActionChains(self.driver).move_to_element(element)
         hov.perform()
-        self.short_wait()
         # add another product
         self.driver.find_element(
             By.XPATH,
@@ -188,15 +158,12 @@ class Object(PageObject):
         # proceed to checkout
         self.driver.find_element(
             By.CSS_SELECTOR, "a.button.btn.btn-default.standard-checkout.button-medium > span").click()
-        self.short_wait()
         self.driver.find_element(
             By.CSS_SELECTOR, "button.button.btn.btn-default.button-medium").click()
         # get the delivery/shipping price
         delivery_price = self.driver.find_element(By.CSS_SELECTOR, "td.delivery_option_price > div").text[1:]
-        self.short_wait()
         # click on the checkbox
         self.driver.find_element(By.ID, "cgv").click()
-        self.short_wait()
         # click the proceed to checkout button
         self.driver.find_element(
             By.CSS_SELECTOR, "button.button.btn.btn-default.standard-checkout.button-medium").click()
@@ -209,14 +176,12 @@ class Object(PageObject):
     def order_details(self):
         # click on account name
         self.driver.find_element(By.CSS_SELECTOR, "a.account").click()
-        self.short_wait()
         # click on order and history details
         self.driver.find_element(By.CSS_SELECTOR, "#center_column a > span").click()
         # click on the reference number
         self.driver.find_element(By.CSS_SELECTOR, "a.color-myaccount").click()
         # scroll page down
         self.driver.execute_script("window.scrollTo(0, 450)")
-        self.long_wait()
         # TODO: download pdf
         # click on pdf
         pdf = self.driver.find_element(
@@ -224,6 +189,5 @@ class Object(PageObject):
         self.short_wait()
         # download the pdf
         self.driver.get(pdf)
-        self.long_wait()
         # sign out from the website
         self.driver.find_element(By.CSS_SELECTOR, "a.logout").click()

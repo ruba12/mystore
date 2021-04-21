@@ -1,6 +1,6 @@
 # Virtual env
-.venv/
-.env/
+.venv
+.env
 .pytest_cache
 .idea
 

@@ -15,12 +15,10 @@ class TestLoginPage(MyStore):
     # validate login email
     def test_login(self):
         Object(self.driver).login_as_user()
-        self.short_wait()
 
     # verify if a user successfully created account
     def test_create_account(self):
         Object(self.driver).create_account()
-        self.short_wait()
 
     # verify it a user successfully added product to cart
     def test_add_to_cart(self):
@@ -33,4 +31,3 @@ class TestLoginPage(MyStore):
     # verify order details and history
     def test_order_details(self):
         Object(self.driver).order_details()
-        self.short_wait()
