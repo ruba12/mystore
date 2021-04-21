@@ -143,6 +143,8 @@ class Object(PageObject):
         return stock
 
     def new_payment(self):
+        # proceed to checkout
+        self.driver.find_element(By.CSS_SELECTOR, "div.layer_cart_cart.col-xs-12.col-md-6  a > span").click()
         # getting the value of total product
         total_product = self.driver.find_element(By.ID, "total_product").text[1:]
         # getting the value of total shipping/delivery charge
