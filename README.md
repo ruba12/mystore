@@ -12,15 +12,24 @@
 Selenium
 
 # Setup
-* install python
-* pip install -r requirements.txt
+1.install python
+
+2.pip install -r requirements.txt
+
+# Operating System
+* Windows
+* macOS
 
 # Running Tests
-* The following steps should get you set up for running Selenium tests locally on your machine:
+The following steps should get you set up for running Selenium tests locally on your machine:
 
-1.Clone this repository to your local machine
+1.Clone this repository to your local machine. 
 
-2.Run python -m pytest my_store/test_create_account.py -s
+2.Open test_mystore.py file
+
+3.Run the following command:
+
+python -m pytest my_store/test_mystore.py -s
 
 # Browser
 Chrome

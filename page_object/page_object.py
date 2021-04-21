@@ -1,5 +1,6 @@
 """Page object creates an object repository for storing all web elements. It is useful in reducing code duplication and
 improves test case maintenance"""
+
 import re
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -41,9 +42,9 @@ class Object(PageObject):
             email = self.new_email
             # validate user email
             if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
-                # if the email is valid
+                 # if the email is valid
                 email_flag = True
-                # username
+                # enter email address
                 username_input.send_keys(self.new_email)
                 # login button
                 submit_button.click()
@@ -122,6 +123,13 @@ class Object(PageObject):
         self.driver.find_element(
             By.XPATH,
             "/html/body/div/div[2]/div/div[3]/div[2]/ul/li[1]/div/div[2]/div[2]/a[1]/span").click()
+        self.long_wait
+        #  add item to cart
+        self.driver.find_element(
+            By.CSS_SELECTOR,
+            "#homefeatured > li:nth-child(2) > div > div.right-block > div.button-container"
+            " > a.button.ajax_add_to_cart_button.btn.btn-default > span").click()
+        self.short_wait()
         # continue shopping
         self.driver.find_element(By.CSS_SELECTOR, ".continue.btn.btn-default.button.exclusive-medium").click()
         element = self.driver.find_element(
@@ -134,11 +142,7 @@ class Object(PageObject):
             "/html/body/div/div[2]/div/div[3]/div[2]/ul/li[2]/div/div[2]/div[2]/a[1]/span").click()
         return stock
 
-    """Validate if user can make purchase/payment"""
-
-    def make_purchase(self):
-        # proceed to checkout
-        self.driver.find_element(By.CSS_SELECTOR, "div.layer_cart_cart.col-xs-12.col-md-6  a > span").click()
+    def new_payment(self):
         # getting the value of total product
         total_product = self.driver.find_element(By.ID, "total_product").text[1:]
         # getting the value of total shipping/delivery charge
@@ -158,6 +162,18 @@ class Object(PageObject):
         # click proceed to checkout
         self.driver.find_element(
             By.CSS_SELECTOR, "button.button.btn.btn-default.button-medium").click()
+        # verifying and asserting the total price with obtained total price with tax
+        total_price = self.driver.find_element(By.ID, "total_price").text[1:3]
+        total_price = int(total_price)
+        assert total_price_with_tax == total_price
+        # click to proceed to checkout
+        self.driver.find_element(
+            By.CSS_SELECTOR, "a.button.btn.btn-default.standard-checkout.button-medium > span").click()
+        self.short_wait()
+        # click proceed to checkout
+        self.driver.find_element(
+            By.CSS_SELECTOR, "button.button.btn.btn-default.button-medium").click()
+        self.short_wait()
         # click on the checkbox
         self.driver.find_element(By.ID, "cgv").click()
         # click the proceed to checkout button

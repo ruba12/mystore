@@ -24,9 +24,9 @@ class TestLoginPage(MyStore):
         # validate the number of item in the page with result
         assert int(number_of_items) == TestLoginPage.result
 
-    # verify if a user successfully make purchase
-    def test_make_purchase(self):
-        TestLoginPage.total_price_with_tax = Object(self.driver).make_purchase()
+    # verify if a user successfully make payment
+    def test_payment(self):
+        TestLoginPage.total_price_with_tax = Object(self.driver).new_payment()()
         total_price = self.driver.find_element(By.ID, "total_price").text[1:3]
         total_price = int(total_price)
         # verifying and asserting the total price with obtained total price with tax
