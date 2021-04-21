@@ -20,7 +20,7 @@ class _TestCaseUtils(object):
     """General utility methods for writing test cases."""
     driver = None  # Chrome web driver
     url = None  # UAT domain name
-    max_timeout = 60
+    max_timeout = 40
 
     @staticmethod
     def get_random_chars():
@@ -36,6 +36,11 @@ class _TestCaseUtils(object):
     def short_wait():
         """Wait for 1 second."""
         time.sleep(1)
+
+    @staticmethod
+    def long_wait():
+        """Wait for 1 second."""
+        time.sleep(5)
 
     @classmethod
     def get_random_email(cls):
