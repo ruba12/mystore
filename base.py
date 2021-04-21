@@ -32,16 +32,6 @@ class _TestCaseUtils(object):
         random.shuffle(letters)
         return ''.join(letters[:size])
 
-    @staticmethod
-    def short_wait():
-        """Wait for 1 second."""
-        time.sleep(1)
-
-    @staticmethod
-    def long_wait():
-        """Wait for 1 second."""
-        time.sleep(5)
-
     @classmethod
     def get_random_email(cls):
         """Return an email address consisting of random letters.
