@@ -1,13 +1,5 @@
-"""
-The test script consist of 4 scenarios which is:
-1.Validate if a user can successfully register  and create an account with a valid username and password.
-2.Validate that the user can buy products added to the cart after signing in to the application
-(or as per the functionality of the website).
-3.Validate if the user can add more than one product in the cart
-4. Validate order delivery details and history
-"""
-from selenium.webdriver.common.by import By
 
+from selenium.webdriver.common.by import By
 from base import MyStore
 from page_object.page_object import Object
 
