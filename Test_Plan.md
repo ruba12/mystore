@@ -1,6 +1,7 @@
 Simple Test plan for MyStore
 
 What is it and what is it used for?
+
 The objective of the product is to allow clients/customers to purchase item directly from the seller (B2C)
 
 How will it work?
@@ -12,9 +13,11 @@ User can able to download invoice PDF
 Users can able to logout
  
 What not to test
+
 Validation,limitations and size of the icon which is covered under unit testing
 
 What type of tool should be used?
+
 Selenium test to test the GUI
 
 
