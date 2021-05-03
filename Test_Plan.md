@@ -1,4 +1,4 @@
- Test plan for MyStore
+Simple Test plan for MyStore
 
 	•	What is it and what is it used for?
 The objective of the product is to allow clients/customers to purchase item directly from the seller (B2C)
